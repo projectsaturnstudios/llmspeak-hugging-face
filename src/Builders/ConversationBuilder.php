@@ -22,6 +22,7 @@ class ConversationBuilder
     {
         $this->conversation[] = [
             'role' => 'assistant',
+            'content' => '',
             'tool_calls' => [
                 [
                     'id' => $id,
@@ -36,12 +37,13 @@ class ConversationBuilder
         return $this;
     }
 
-    public function addToolResult(string $name, mixed $content): static
+    public function addToolResult(string $id, string $name, mixed $content): static
     {
         $this->conversation[] = [
+            'tool_call_id' => $id,
             'role' => 'tool',
-            'tool_call_id' => $name,
-            'content' => json_encode($content)
+            'name' => $name,
+            'content' => is_array($content) ? json_encode($content) : $content
         ];
         return $this;
     }

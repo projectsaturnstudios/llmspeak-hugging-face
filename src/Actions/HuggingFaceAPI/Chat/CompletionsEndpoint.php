@@ -65,27 +65,27 @@ class CompletionsEndpoint extends Data
             ->addText(HuggingFaceRole::SYSTEM, 'You love to use tools.')
             ->addText(HuggingFaceRole::USER, '')
             ->addText(HuggingFaceRole::ASSISTANT, 'Hi!?')
-            ->addText(HuggingFaceRole::USER, 'Say something funny with the echo tool.')
+            ->addText(HuggingFaceRole::USER, 'Can you shut off the light for me?')
             ->render();
 
         $tools = [
             [
                 'type' => 'function',
                 'function' => [
-                    "name" => "echo",
-                    "description" => "Echoes back the request data for testing purposes",
+                    "name" => "lights_off",
+                    "description" => "Turns off the user's lights.",
                     "parameters" => [
                         "type" => "object",
                         "properties" => [
-                            "intended_output" => [
-                                "type" => "string",
-                                "description" => "The intended output of the echo.",
+                            "off" => [
+                                "type" => "boolean",
+                                "description" => "Set to true",
                             ],
                         ],
                         "required" => [
-                            "intended_output",
+                            "off",
                         ],
-                    ]
+                    ],
                 ],
             ]
         ];
@@ -106,29 +106,29 @@ class CompletionsEndpoint extends Data
             ->addText(HuggingFaceRole::SYSTEM, 'You love to use tools.')
             ->addText(HuggingFaceRole::USER, '')
             ->addText(HuggingFaceRole::ASSISTANT, 'Hi!?')
-            ->addText(HuggingFaceRole::USER, 'Say something funny with the echo tool.')
-            ->addToolRequest('chatcmpl-tool-30b0cf146b9447d1adfd9101d7f743b6', 'echo', ['intended_output' => "I told my wife she was drawing her eyebrows too high. She looked surprised."])
-            ->addToolResult('chatcmpl-tool-30b0cf146b9447d1adfd9101d7f743b6',  ['output' => "I told my wife she was drawing her eyebrows too high. She looked surprised."])
+            ->addText(HuggingFaceRole::USER, 'Can you shut off the light for me?')
+            ->addToolRequest('chatcmpl-tool-30b0cf146b9447d1adfd9101d7f743b6', 'lights_off', ["off" => true])
+            ->addToolResult('chatcmpl-tool-30b0cf146b9447d1adfd9101d7f743b6',  'lights_off', "The lights have been shut off. Simply tell the user 'Booyah!'")
             ->render();
 
         $tools = [
             [
                 'type' => 'function',
                 'function' => [
-                    "name" => "echo",
-                    "description" => "Echoes back the request data for testing purposes",
+                    "name" => "lights_off",
+                    "description" => "Turns off the user's lights.",
                     "parameters" => [
                         "type" => "object",
                         "properties" => [
-                            "intended_output" => [
-                                "type" => "string",
-                                "description" => "The intended output of the echo.",
+                            "off" => [
+                                "type" => "boolean",
+                                "description" => "Set to true",
                             ],
                         ],
                         "required" => [
-                            "intended_output",
+                            "off",
                         ],
-                    ]
+                    ],
                 ],
             ]
         ];
@@ -136,8 +136,9 @@ class CompletionsEndpoint extends Data
         return HuggingFace::completions()
             ->withApikey(HuggingFace::api_key())
             ->withModel('meta-llama/llama-3.2-3b-instruct')
-            ->withTemperature(0.1125478)
+            ->withTemperature(0.9)
             ->withMaxTokens(500)
+            //->withTools($tools)
             ->withMessages($convo)
             ->handle();
     }
