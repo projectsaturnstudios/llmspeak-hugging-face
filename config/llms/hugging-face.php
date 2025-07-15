@@ -25,4 +25,5 @@ return [
     */
 
     'api_url' => env('HF_API_URL', 'https://router.huggingface.co/v1/'),
+    'embeddings_api_url' => env('HF_EMBEDDINGS_API_URL', 'https://router.huggingface.co/v1/'),
 ];

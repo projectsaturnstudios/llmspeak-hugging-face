@@ -9,4 +9,10 @@ HuggingFace::completions() <--- HuggingFaceCompletionsAPIRepository Instance
     ->withTemperature($temperature) <--- HuggingFaceCompletionsAPIRepository Instance
     ->withMessages($messages) <--- CompletionsEndpoint Instance
     ->handle();
+
+HuggingFace::embeddings()
+    ->withApikey(HuggingFace::api_key())
+    ->withModel($model)
+    ->withInputs($convo)
+    ->handle();
 ```
