@@ -15,6 +15,6 @@ class EmbeddingQueryBuilder
 
     public function render(): array|string
     {
-        return count($this->conversation) == 1 ? $this->conversation[0] : implode(',',$this->conversation);
+        return count($this->conversation) == 1 ? $this->conversation[0] : $this->conversation;
     }
 }

@@ -2,7 +2,7 @@
     "name": "llm-speak/hugging-face",
     "description": "A Laravel package for integrating HuggingFace-hosted Models into LLMSpeak",
     "type": "library",
-    "version": "0.3.3",
+    "version": "0.3.4",
     "license": "MIT",
     "authors": [
         {

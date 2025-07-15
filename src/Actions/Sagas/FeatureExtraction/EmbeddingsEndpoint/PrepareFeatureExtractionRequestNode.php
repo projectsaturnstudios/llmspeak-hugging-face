@@ -26,7 +26,7 @@ class PrepareFeatureExtractionRequestNode extends Node
         if(array_key_exists('model', $prep_res)) $results['body']['model'] = $prep_res['model'];
         else throw new \InvalidArgumentException('Model is required for the request.');
 
-        if(array_key_exists('inputs', $prep_res)) is_array($prep_res['inputs']) ? $results['body']['inputs'] = $prep_res['inputs'] : $results['body']['input'] = $prep_res['inputs'];
+        if(array_key_exists('inputs', $prep_res)) is_array($prep_res['inputs']) ? $results['body']['input'] = $prep_res['inputs'] : $results['body']['input'] = $prep_res['inputs'];
         else throw new \InvalidArgumentException('Inputs are required for the request.');
 
         return $results;
